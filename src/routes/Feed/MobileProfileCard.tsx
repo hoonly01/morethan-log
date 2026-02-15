@@ -1,6 +1,12 @@
 import { CONFIG } from "site.config"
 import Image from "next/image"
 import React from "react"
+import {
+  AiFillLinkedin,
+  AiOutlineGithub,
+  AiOutlineInstagram,
+  AiOutlineMail,
+} from "react-icons/ai"
 import styled from "@emotion/styled"
 
 type Props = {
@@ -10,8 +16,7 @@ type Props = {
 const MobileProfileCard: React.FC<Props> = () => {
   return (
     <StyledWrapper>
-      <div className="top">💻 Profile</div>
-      <div className="mid">
+      <div className="profile">
         <div className="wrapper">
           <Image
             src={CONFIG.profile.image}
@@ -27,6 +32,48 @@ const MobileProfileCard: React.FC<Props> = () => {
           </div>
         </div>
       </div>
+      <div className="contact-links">
+        {CONFIG.profile.github && (
+          <a
+            href={`https://github.com/${CONFIG.profile.github}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <AiOutlineGithub className="icon" />
+            <div className="name">github</div>
+          </a>
+        )}
+        {CONFIG.profile.instagram && (
+          <a
+            href={`https://www.instagram.com/${CONFIG.profile.instagram}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <AiOutlineInstagram className="icon" />
+            <div className="name">instagram</div>
+          </a>
+        )}
+        {CONFIG.profile.email && (
+          <a
+            href={`mailto:${CONFIG.profile.email}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <AiOutlineMail className="icon" />
+            <div className="name">email</div>
+          </a>
+        )}
+        {CONFIG.profile.linkedin && (
+          <a
+            href={`https://www.linkedin.com/in/${CONFIG.profile.linkedin}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <AiFillLinkedin className="icon" />
+            <div className="name">linkedin</div>
+          </a>
+        )}
+      </div>
     </StyledWrapper>
   )
 }
@@ -40,11 +87,7 @@ const StyledWrapper = styled.div`
     display: none;
   }
 
-  > .top {
-    padding: 0.25rem;
-    margin-bottom: 0.75rem;
-  }
-  > .mid {
+  > .profile {
     padding: 0.5rem;
     margin-bottom: 1rem;
     border-radius: 1rem;
@@ -72,6 +115,43 @@ const StyledWrapper = styled.div`
           font-size: 0.875rem;
           line-height: 1.25rem;
         }
+      }
+    }
+  }
+
+  > .contact-links {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    padding: 0.25rem;
+    border-radius: 1rem;
+    background-color: ${({ theme }) =>
+      theme.scheme === "light" ? "white" : theme.colors.gray4};
+
+    a {
+      display: flex;
+      padding: 0.75rem;
+      gap: 0.75rem;
+      align-items: center;
+      border-radius: 1rem;
+      color: ${({ theme }) => theme.colors.gray11};
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: ${({ theme }) => theme.colors.gray12};
+        background-color: ${({ theme }) => theme.colors.gray5};
+      }
+
+      .icon {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+
+      .name {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
       }
     }
   }
